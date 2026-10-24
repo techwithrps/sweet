@@ -541,23 +541,23 @@ export default function SweetPOSPage() {
             <div className="space-y-2 pt-1">
               <div className="flex space-x-2">
                 <div className="flex-1 relative">
-                  <User className="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400" />
+                  <User className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
                   <input
                     type="text"
                     placeholder="Customer Name (Optional)"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-slate-100 rounded-xl pl-8 pr-3 py-2 text-xs focus:ring-1 focus:ring-amber-500 outline-none border border-slate-200"
+                    className="w-full bg-white text-slate-900 placeholder:text-slate-400 font-medium rounded-xl pl-9 pr-3 py-2 text-xs focus:ring-2 focus:ring-amber-500 outline-none border border-slate-300 shadow-xs"
                   />
                 </div>
                 <div className="flex-1 relative">
-                  <Phone className="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400" />
+                  <Phone className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
                   <input
                     type="tel"
-                    placeholder="Mobile (For SMS bill)"
+                    placeholder="Mobile (For SMS)"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full bg-slate-100 rounded-xl pl-8 pr-3 py-2 text-xs focus:ring-1 focus:ring-amber-500 outline-none border border-slate-200"
+                    className="w-full bg-white text-slate-900 placeholder:text-slate-400 font-medium rounded-xl pl-9 pr-3 py-2 text-xs focus:ring-2 focus:ring-amber-500 outline-none border border-slate-300 shadow-xs"
                   />
                 </div>
               </div>

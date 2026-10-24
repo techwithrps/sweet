@@ -81,9 +81,8 @@ export function buildSalesVoucherXML(order: BillOrder): string {
           <VOUCHER VCHTYPE="Sales" ACTION="Create">
             <DATE>${tallyDate}</DATE>
             <VOUCHERTYPENAME>Sales</VOUCHERTYPENAME>
-            <VOUCHERNUMBER>${order.bill_number}</VOUCHERNUMBER>
-            <REFERENCE>${order.bill_number}</REFERENCE>
             <PARTYLEDGERNAME>${partyAccount}</PARTYLEDGERNAME>
+            <REFERENCE>${order.bill_number}</REFERENCE>
             <NARRATION>${narration.replace(/[<>&'"]/g, '')}</NARRATION>
             
             <!-- 1. Party Account (Debited - Negative in Tally) -->
