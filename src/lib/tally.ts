@@ -95,7 +95,7 @@ export function buildSalesVoucherXML(order: BillOrder): string {
 
             <!-- 2. Sales Account (Credited - Positive in Tally) -->
             <ALLLEDGERENTRIES.LIST>
-              <LEDGERNAME>Sales</LEDGERNAME>
+              <LEDGERNAME>Sales Account</LEDGERNAME>
               <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
               <AMOUNT>${order.subtotal.toFixed(2)}</AMOUNT>
             </ALLLEDGERENTRIES.LIST>
