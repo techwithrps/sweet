@@ -164,17 +164,26 @@ export async function pushVoucherToTally(
     }
 
     const respText = data.xml_response || '';
-    if (respText.includes('<CREATED>1</CREATED>') || respText.includes('<ALTERED>1</ALTERED>')) {
+    const hasCreated =
+      respText.includes('<CREATED>1</CREATED>') ||
+      respText.includes('<ALTERED>1</ALTERED>') ||
+      /<CREATED>[1-9]\d*<\/CREATED>/.test(respText);
+
+    if (hasCreated) {
       return { success: true, message: 'Voucher synced to Tally!', raw: respText };
     }
 
-    if (respText.includes('<ERRORS>')) {
+    if (respText.includes('<ERRORS>') && !respText.includes('<ERRORS>0</ERRORS>')) {
       const match = respText.match(/<LINEERROR>(.*?)<\/LINEERROR>/);
       const errMsg = match ? match[1] : 'Tally rejected voucher XML';
       return { success: false, message: errMsg, raw: respText };
     }
 
-    return { success: true, message: 'Response received from Tally', raw: respText };
+    if (respText.includes('<EXCEPTIONS>') && !respText.includes('<EXCEPTIONS>0</EXCEPTIONS>')) {
+      return { success: false, message: 'Voucher saved with Data Exceptions in Tally', raw: respText };
+    }
+
+    return { success: true, message: 'Synced to TallyPrime', raw: respText };
   } catch (err: any) {
     return { success: false, message: err.message || 'Network error' };
   }
