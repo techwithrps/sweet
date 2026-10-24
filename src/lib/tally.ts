@@ -64,6 +64,11 @@ export function buildSalesVoucherXML(order: BillOrder): string {
     order.customer_phone ? `| Ph: ${order.customer_phone}` : ''
   }`;
 
+  // Total Credit = Subtotal + CGST + SGST
+  const totalTax = order.cgst + order.sgst;
+  const exactTotal = order.subtotal + totalTax;
+  const roundOff = Number((order.grand_total - exactTotal).toFixed(2));
+
   return `<ENVELOPE>
   <HEADER>
     <TALLYREQUEST>Import Data</TALLYREQUEST>
@@ -113,6 +118,17 @@ export function buildSalesVoucherXML(order: BillOrder): string {
               <LEDGERNAME>SGST OUTPUT</LEDGERNAME>
               <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
               <AMOUNT>${order.sgst.toFixed(2)}</AMOUNT>
+            </ALLLEDGERENTRIES.LIST>`
+                : ''
+            }
+            ${
+              roundOff !== 0
+                ? `
+            <!-- 5. ROUND OFF Ledger -->
+            <ALLLEDGERENTRIES.LIST>
+              <LEDGERNAME>ROUND OFF</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>${roundOff < 0 ? 'Yes' : 'No'}</ISDEEMEDPOSITIVE>
+              <AMOUNT>${roundOff.toFixed(2)}</AMOUNT>
             </ALLLEDGERENTRIES.LIST>`
                 : ''
             }
